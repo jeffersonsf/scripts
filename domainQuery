@@ -1,5 +1,5 @@
 #!/bin/bash
-for url in $(cat consultaEntradas.txt);
+for url in $(cat tipoEntradas.txt);
 do
         echo -e "-------------------------\n Entrada tipo: $url \n\n" $(host -t $url $1)
 done
