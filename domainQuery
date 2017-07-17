@@ -1,4 +1,3 @@
-                                                                                                                                                                 
 #!/bin/bash
 echo -e "-------------------------------------------------------\n"
 echo    "--------Iniciando constulta entrada DNS------------------"
@@ -10,7 +9,11 @@ do
 done
 
 echo -e "-------------------------------------------------------\n"
+echo -e "DNS Reverso\n" 
+
+ipm=`host -t a $1 | awk '{print$4}' | sed '2d'`
+host $ipm
+
+echo -e "-------------------------------------------------------\n"
 echo    "--------Consulta de entradas DNS finalizadas"------------
-                                                                                                                                                                                        
-~                                                                                                                                                                                               
-~                              
+       
