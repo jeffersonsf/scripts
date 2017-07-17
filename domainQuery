@@ -1,9 +1,16 @@
+                                                                                                                                                                 
 #!/bin/bash
-for url in $(cat tipoEntradas.txt);
+echo -e "-------------------------------------------------------\n"
+echo    "--------Iniciando constulta entrada DNS------------------"
+echo""
+
+for url in $(echo 'A,ANY,MX,NS,SOA,HINFO,AXFR,TXT' | awk -F , '{print$1"\n"$2"\n"$3"\n"$4"\n"$5"\n"$6"\n"$7"\n"$8}' | tee tipo);
 do
         echo -e "-------------------------\n Entrada tipo: $url \n\n" $(host -t $url $1)
 done
-~                                                                                                                                                                                               
-~                                                                                                                                                                                               
+
+echo -e "-------------------------------------------------------\n"
+echo    "--------Consulta de entradas DNS finalizadas"------------
+                                                                                                                                                                                        
 ~                                                                                                                                                                                               
 ~                              
