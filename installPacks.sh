@@ -27,7 +27,6 @@ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -;
 
 sed -i -e 's/deb http/deb [arch=amd64] http/' "/etc/apt/sources.list.d/google.list" && sed -i -e 's/deb http/deb [arch=amd64] http/' "/opt/google/chrome/cron/google-chrome";
 
-
 ##Adiciona os repostórios necessários para a instalação do Linphone:
 
 add-apt-repository ppa:linphone/release
@@ -49,7 +48,7 @@ apt-get update;
 
 ##Instala o terminator
 echo "Instalando Terminator.. ";
-apt-get install terminator;
+apt-get -f install terminator;
 echo;
 ##Instala o Google Chrome
 echo "Instalando Google Chrome.. ";
@@ -57,13 +56,13 @@ apt-get install google-chrome-stable;
 echo;
 ##Instala Linphone
 echo "Instalando Linphone.. ";
-apt-get install linphone;
+apt-get -f install linphone;
 echo;
 ##Instala o HipChat
-apt-get install hipchat4;
+apt-get -f install hipchat4;
 echo;
 ##Instala Remmina
-apt-get install remmina remmina-plugin-rdp libfreerdp-plugins-standard;
+apt-get -f install remmina remmina-plugin-rdp libfreerdp-plugins-standard;
 echo;
 
 echo "Instalação de Softwares Concluida com sucesso!";
