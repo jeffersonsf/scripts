@@ -63,7 +63,7 @@ apt-get -f install hipchat4;
 echo;
 ##Instala Remmina
 apt-get -f install remmina remmina-plugin-rdp libfreerdp-plugins-standard;
-echo;
+echo"";
 
 echo "Instalação de Softwares Concluida com sucesso!";
 
