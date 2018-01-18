@@ -44,7 +44,7 @@ add-apt-repository ppa:remmina-ppa-team/remmina-next
 
 ##Adiciona os repositorios Sublime
 
-sudo add-apt-repository ppa:webupd8team/sublime-text-3
+add-apt-repository ppa:webupd8team/sublime-text-3
 
 ##Adiciona os repositorios do copyq
 
