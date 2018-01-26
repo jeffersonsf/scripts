@@ -12,36 +12,6 @@ if [[ $userV == root ]]; then
 	echo "##                                 latam-infra@endurance.com ##";
 	echo "###############################################################";
 
-	sleep 3;
-
-	Menu(){
-		echo "---------------------------------------------------";
-		echo "Escolha quais softwares serão instalados";
-		echo "---------------------------------------------------";
-		echo "[1] Todos";
-		echo "[2] Terminator";
-		echo "[3] Google Chrome";
-		echo "[4] Linphone";
-		echo "[5] HipChat";
-		echo "[6] Remmina";
-		echo "[7] Sublime 3";
-		echo "[8] Copyq";
-		echo;
-		echo -n "Qual software você deseja instalar?";
-		read opcao;
-		case $opcao in 
-			1) Todos ;;
-			2) Terminator ;;
-			3) Google Chrome ;;
-			4) Linphone ;;
-			5) HipChat ;;
-			6) Remmina ;;
-			7) Sublime 3 ;;
-			8) Copyq ;;
-			*) "Opção Desconhecida.";echo; Menu;;
-		esac
-	}
-
 	##Funções
 
 	instalaTerminator(){
@@ -107,6 +77,8 @@ if [[ $userV == root ]]; then
 	instalaSublime(){
 		##Instala Sublime
 		apt-get install sublime-text-installer
+		apt-get install	libsublime8 libsublime-dev
+
 		echo;
 	}
 	Sublime(){
@@ -117,7 +89,7 @@ if [[ $userV == root ]]; then
 	}
 	instalaCopyq(){
 		##Instala Copyq
-		apt install copyq
+		apt-get install copyq
 		echo;
 	}
 	Copyq(){
@@ -125,6 +97,36 @@ if [[ $userV == root ]]; then
 		add-apt-repository --yes ppa:hluk/copyq
 		apt-get update;
 		instalaCopyq;
+	}
+	instalaMySqlClient(){
+		apt-get install mysql-client;
+	}
+	instalaElinks(){
+		apt-get install elinks elinks-data;
+	}
+	instalaMtr(){
+		apt-get install mtr;
+	}
+	instalaHtop(){
+		apt-get install htop;
+	}
+	instalaFilezilla(){
+		apt-get install filezilla filezilla-common;
+	}
+	instalaCompactadores(){
+		apt-get install bzip2 gzip zip unzip rar p7zip p7zip-full p7zip-rar unrar;
+	}
+	instalaNmap(){
+		apt-get install nmap;
+	}
+	instalaPinta(){
+		apt-get install pinta;
+	}
+	instalaThunderBird(){
+		apt-get install thunderbird-globalmenu thunderbird-mozsymbols thunderbird-testsuite;
+	}
+	instalaKeeppassx(){
+		apt-get install keepassx;
 	}
 
 	Todos(){
@@ -185,42 +187,86 @@ if [[ $userV == root ]]; then
 		##Instala Copyq
 		apt install copyq
 		echo;
-	}
+		##Instala Mysql
+		apt-get install mysql-client;
+		echo;
+		##Instala Elinks
+		apt-get install elinks elinks-data;
+		echo;	
+		##Instala MTR
+		apt-get install mtr;
+		echo;	
+		##Instala Htop
+		apt-get install htop;
+		echo;
+		##Instala Filezilla
+		apt-get install filezilla filezilla-common;
+		echo;
+		##Instala Compactadores
+		apt-get install bzip2 gzip zip unzip rar p7zip p7zip-full p7zip-rar unrar;
+		echo;
+		##Instala Nmap
+		apt-get install nmap;
+		echo;
+		##Instala Pinta
+		apt-get install pinta;
+		echo;
+		##Instala Thunderbird
+		apt-get install thunderbird-globalmenu thunderbird-mozsymbols thunderbird-testsuite;
+		echo;
+		##Instala Keeppassx
+		apt-get install keepassx;
+		echo;
+		}
+	sleep 3;
 
-		##Mostra o menu de escolha para o usuario
+	Menu(){
+		echo "---------------------------------------------------";
+		echo "Escolha quais softwares serão instalados";
+		echo "---------------------------------------------------";
+		echo "[1] Todos";
+		echo "[2] Terminator";
+		echo "[3] Google Chrome";
+		echo "[4] Linphone";
+		echo "[5] HipChat";
+		echo "[6] Remmina";
+		echo "[7] Sublime 3";
+		echo "[8] Copyq";
+		echo;
+		echo -n "Qual software você deseja instalar?";
+		read opcao;
+		case $opcao in 
+			1) Todos ;;
+			2) Terminator ;;
+			3) Google Chrome ;;
+			4) Linphone ;;
+			5) HipChat ;;
+			6) Remmina ;;
+			7) Sublime 3 ;;
+			8) Copyq ;;
+			*) echo; echo "Opção Desconhecida!"; Menu;;
+		esac
+	}
+	##Mostra o menu de escolha para o usuario
 	Menu;
 
 	##Verifica a Opcao Escolhida pelo Usuario 
 	if [[ $opcao == "1" ]]; then
 		Todos;
-	else 
-		if [[ $opcao == "2" ]]; then
-			Terminator;
-		else
-			if [[ $opcao == "3" ]]; then
-				Chrome;
-			else
-				if [[ $opcao == "4" ]]; then
-					Linphone;
-				else
-					if [[ $opcao == "5" ]]; then
-						Hipchat;
-					else
-						if [[ $opcao == "6" ]]; then
-							Remmina;
-						else
-							if [[ $opcao == "7" ]]; then
-								Sublime;
-							else
-								if [[ $opcao == "8" ]]; then
-									Copyq;
-								fi
-							fi
-						fi
-					fi
-				fi
-			fi
-		fi
+	elif [[ $opcao == "2" ]]; then
+		Terminator;
+	elif [[ $opcao == "3" ]]; then
+		Chrome;
+	elif [[ $opcao == "4" ]]; then
+		Linphone;
+	elif [[ $opcao == "5" ]]; then
+		Hipchat;
+	elif [[ $opcao == "6" ]]; then
+		Remmina;
+	elif [[ $opcao == "7" ]]; then
+		Sublime;
+	elif [[ $opcao == "8" ]]; then
+		Copyq;
 	fi			
 	echo;
 	echo "Instalação de Softwares Concluida com sucesso!";
