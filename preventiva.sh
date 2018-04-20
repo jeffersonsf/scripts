@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo "Rodando Preventiva..";
-echo 
+echo "Prenventiva Executada";
 
 ############Variaveis de controle do Script#################
 
@@ -22,6 +21,7 @@ echo "" >> report;
 echo "Uptime da máquina:" >> report;
 echo "" >> report;
 uptime  >> report;
+echo "" >> report;
 
 ############# Registro dos 10 últimos logins ###############
 
@@ -91,7 +91,9 @@ fi
 #cat /root/aux_resport | egrep -i  'ssw|rsw|'
 
 ### Montar Relaorio###
-
+echo "############### PREVENTIVA SUMMIT ##################### " >> report_$dt;
+echo"" >> report_$dt;
+echo"">> report_$dt;
 echo "-----------------Resumo de Notificações-------------------- " >> report_$dt;
 cat resumo >> report_$dt;
 echo "-----------------Informações Gerais------------------------ " >> report_$dt;
