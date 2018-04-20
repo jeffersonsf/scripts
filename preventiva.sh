@@ -1,15 +1,45 @@
 #!/bin/bash
 
-echo "PREVENTIVA SUMMIT..";
-sleep 2;
-echo "################";
-echo "Coletando informações";
-sleep 2;
+echo "Rodando Preventiva..";
+echo 
 
+############Variaveis de controle do Script#################
+
+#Data
 dt=`date "+%d%m%Y"`;
-report=`root/report_$dt`;
+#Diretorio que será utilizado para criação dos arquivos temp
+cd /tmp;
+
+################ Verifica tempo maquina ligada ##############
+
+time=`uptime | awk '{print $3}'`;
+if [ $time -le 7 ];
+then 
+	echo -e  "- Maquina reiniciada a menos de 7 dias" >> resumo;
+	echo "" >> resumo;	
+fi
+echo "" >> report;
+echo "Uptime da máquina:" >> report;
+echo "" >> report;
+uptime  >> report;
+
+############# Registro dos 10 últimos logins ###############
+
+last_login=`last | head`;
+echo -e "Ultimos usuários que realizaram login:\n $last_login" >> report;
+echo "" >> report;
+
+############ Verifica Tamanho dos Logs ####################
+
+logs=`ls -lahS /var/log/  | egrep  '\BG' | wc -l`;
+if [ $logs -ge 1 ]; then
+	echo "Verifique o(s) log(s) aprensetado(s) abaixo:" >> resumo;
+	ls -lahS /var/log/  | egrep  '\BG' >> resumo;
+	echo "" >> resumo;
+fi
 
 ###################Verifica espaço em disco######################################
+
 disco=$(df -h | awk '{print $5}' | sed '1,3d' | sed 's/%//g');
 
 #Cria Array com os valores coletados de todas as partições 
@@ -26,20 +56,15 @@ for t in ${array[*]}
 do
 	if [ $t -ge 80 ]; #Se entrar nessa condição o disco irá estourar
 	then
-		echo "######VERIFICAR ESPAÇO DISCO#######" >> $report;
-		df -h | tee -a  >> $report;
+		echo "- Verificar Espaço em Disco" >> resumo;
+		echo "" >> resumo;
 		break;	
 	fi
 done
-
-################ Verifica tempo maquina ligada ############################
-
-time=`uptime | awk '{print $3}'`;
-if [ $time -le 7 ];
-then 
-	echo -e  "Maquina reiniciada a menos de 7 dias\ne" >> $report;
-	uptime | tee -a  >> $report;
-fi
+echo "Espaço em Disco: " >> report;
+echo "" >> report;
+df -h >> report;
+echo "" >> report;
 
 ############## Verifica Uso de memoria ################
 
@@ -47,32 +72,29 @@ fi
 
 ################ Verificar tamanho do banco de dados ##################
 
+########Servicos Summit#############
 
-############# Usuario Logados no momento###############
-
-last_login=`last | head`;
-echo -e "Ultimos usuários que realizaram login:\n $last_login";
-
-############ Verifica Tamanho dos Logs ####################
-
-echo -e "SE FOR APRESENTADO ALGUM RESULTADO ANALISE O LOG: \n";
-
-ls -lahS /var/log/ | egrep '\BM|\BG' | tee -a >>  $report;
 
 ################# Verificar se o SPG está rodando ################
 
 spg=`ps aux | grep -i spg | wc -l`;
 if [ $spg -le 1 ];
 	then 
-		echo "SPG não está rodando" | tee -a $report;
+		echo "- SPG não está rodando" >> resumo;
+		echo "" >> resumo;
 fi
 
-####### Servicos Summit #####
 
-
-echo  "Serviços Summit que estão rodando nesta máquina";
-services=`ls -l `find /opt/sn -maxdepth 1 -type l -print` | awk '{ print $11 }' | sed 's/\/opt\/sn\///' |  tee -a  >> /root/aux_resport`;
+#echo  "Serviços Summit que estão rodando nesta máquina";
+#services=`ls -l `find /opt/sn -maxdepth 1 -type l -print` | auxwk '{ print $11 }' | sed 's/\/opt\/sn\///' |  tee -a  >> /root/aux_resport`;
 
 #cat /root/aux_resport | egrep -i  'ssw|rsw|'
 
+### Montar Relaorio###
 
+echo "-----------------Resumo de Notificações-------------------- " >> report_$dt;
+cat resumo >> report_$dt;
+echo "-----------------Informações Gerais------------------------ " >> report_$dt;
+cat report >> report_$dt;
+rm -f resumo;
+rm -f report;
