@@ -11,11 +11,17 @@ cd /tmp;
 
 ################ Verifica tempo maquina ligada ##############
 
-time=`uptime | awk '{print $3}'`;
-if [ $time -le 7 ];
-then 
+time=`uptime | grep -c "days"`;
+time1=`uptime | awk -F 'up|days' '{print $2}'`;
+if [[ $time -eq 1 ]];	then 
+	if [[ $time1 -le 7 ]]; then
+		echo -e  "- Maquina reiniciada a menos de 7 dias" >> resumo;
+		echo "" >> resumo;
+		break;	
+	fi
+else
 	echo -e  "- Maquina reiniciada a menos de 7 dias" >> resumo;
-	echo "" >> resumo;	
+	echo "" >> resumo;
 fi
 echo "" >> report;
 echo "Uptime da máquina:" >> report;
@@ -48,7 +54,7 @@ for i in ${disco[@]}
 do
 	array[$a]=$i;
 	a=$((a+1));
-done
+done;
 
 ##Verifica se o disco está acima ou não
 
@@ -67,8 +73,15 @@ df -h >> report;
 echo "" >> report;
 
 ############## Verifica Uso de memoria ################
-
-##Verificar através do SAR 
+echo "Memoria: " >> report;
+memT=`free -m | awk '{print $2}' | sed '1d' | sed '2,3d'`;memF=`free -m | awk '{print $3}' | sed '1d' | sed '2,3d'`;
+memP=`echo " $memT * 0.20" | bc | cut -d '.' -f1`;
+if [[ $memP -lt $memF ]];	then
+		echo "- Memoria está com mais 80% de uso" >> resumo;
+		echo "" >> resumo;
+fi
+free -m >> report;
+echo "" >> report;
 
 ################ Verificar tamanho do banco de dados ##################
 
