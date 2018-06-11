@@ -28,6 +28,6 @@ while [[ $op1 == true ]]; do
 	fi
 done
 ##Criação de usuários e configuração dos diretórios
-cd /mnt;
+cd /rislab;
 mkdir $newUser;
 useradd -d $directory/$newUser -s /sbin/nologin $newUser;
