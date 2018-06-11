@@ -1,8 +1,8 @@
 #!/bin/bash
 cd /rislab;
-host="";
-user="200.236.217.186";
-pass="rislab"; 
+host="200.236.217.186";
+user="rislab";
+pass="cwgfa69fQmqv"; 
 ftp -n $host << END_SCRIPT
 quote USER $user
 quote PASS $pass
@@ -10,9 +10,18 @@ prompt
 mget*
 quit
 END_SCRIPT
-##Lista usuarios e copia os arquivos necessarios em cada diretorio dos clientes
-for t in $(ls -l /rislab/ | awk '{print $9}' | sed '/^$/d') 
+##Lista somente diretórios
+for t in $(ls -ld */ | awk '{print $9}' | sed 's#/##g') 
 do 
-	cp * /rislab/$t;
+##Lista somente arquivos
+	for i in $(ls -l | egrep -v '^d|total' | awk '{print $9}')
+	do
+		cp -nr $i $t;
+	done 
 done
+#Elimina arquivos temporarios
+for i in $(ls -l | egrep -v '^d|total' | awk '{print $9}')
+	do
+		rm -f $i;
+done 
 
