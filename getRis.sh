@@ -14,9 +14,9 @@ do
 done
 cd /rislab;
 
-host="200.236.217.186";
-user="rislab";
-pass="cwgfa69fQmqv"; 
+host="";
+user="";
+pass=""; 
 ftp -n $host << END_SCRIPT
 quote USER $user
 quote PASS $pass
