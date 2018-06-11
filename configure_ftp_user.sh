@@ -24,3 +24,4 @@ echo "";
 echo "Usuario inserido com sucesso, abaixo os dados para acesso via FTP:";
 echo "Usuario: $newUser";
 echo "Senha: $pass";
+
