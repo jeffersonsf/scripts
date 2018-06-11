@@ -24,5 +24,18 @@ done
 for i in $(ls -l | egrep -v '^d|total' | awk '{print $9}')
 	do
 		rm -f $i;
-done 
+done
 
+##Elimina arquivos
+
+##Lista somente diretórios
+for t in $(ls -ld */ | awk '{print $9}' | sed 's#/##g') 
+do 
+##Remover de dentro dos diretorios dos clientes
+##Lista somente arquivos
+	cd /rislab/$t
+	for i in $(ls -l | egrep -v '^d|total' | awk '{print $9}')
+	do
+		rm -f $i;
+	done 
+done
