@@ -7,7 +7,8 @@ ftp -n $host << END_SCRIPT
 quote USER $user
 quote PASS $pass
 prompt
-mget*
+mget *
+mdelete *
 quit
 END_SCRIPT
 ##Lista somente diretórios
