@@ -11,7 +11,7 @@ mget*
 quit
 END_SCRIPT
 ##Lista usuarios e copia os arquivos necessarios em cada diretorio dos clientes
-for t in $(ls -l /rislab | awk '{print $9}' | sed '1d'; 
+for t in $(ls -l /rislab/ | awk '{print $9}' | sed '/^$/d') 
 do 
 	cp * /rislab/$t;
 done
