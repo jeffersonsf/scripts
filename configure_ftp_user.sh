@@ -14,19 +14,6 @@ while [[ $op0 == true ]]; do
 		op0=false;
 	fi
 done
-op1=true;
-while [[ $op1 == true ]]; do
-	echo -e "\nDigite a senha do novo usuario";
-	stty -echo;
-	read passwdUser;
-	stty echo;
-	if [[ -z $passwdUser ]]; then
-		echo "Senha não pode ser em branco";
-		op1=true;
-	else
-		op1=false;
-	fi
-done
 ##Criação de usuários e configuração dos diretórios
 cd /rislab;
 mkdir $newUser;
