@@ -31,3 +31,9 @@ done
 cd /rislab;
 mkdir $newUser;
 useradd -d $directory/$newUser -s /sbin/nologin $newUser;
+pass=`date | md5sum | head -c8`;
+usermod -p $(openssl passwd $pass) $newUser;
+echo"";
+echo"Usuario inserido com sucesso, abaixo os dados para acesso via FTP:";
+echo"Usuario: $newUser";
+echo"Senha: $pass";
