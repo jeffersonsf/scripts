@@ -1,5 +1,5 @@
 ## Cria Diretorios necessarios para a realização de bkp e seta variaveis a serem utilizadas
-DB_ID=teste;
+DB_ID=`strings /u01/app/oracle/oradata/XE/system.dbf  | egrep '[0-9], MAXVALUE,'| awk '{print $1}'| sed 's/,//g' | uniq`
 backupArea=/u01/app/oracle/fast_recovery_area/XE;
 dt=`date +%d-%m-%Y`; 
 mkdir -p /mnt/backup/autobackup /mnt/backup/backupset;
