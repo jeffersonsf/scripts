@@ -1,0 +1,23 @@
+##Lista DBID existentes 
+  DB_ID=`strings /u01/app/oracle/oradata/XE/system.dbf  | egrep '[0-9], MAXVALUE,'| awk '{print $1}'| sed 's/,//g' | uniq`
+  bl=`cat $rml | grep DISK | awk 'BEGIN { ORS = " " } { print $1"," }' | sed 's/ //g' | sed 's/.$//'`
+  rm -f $rml
+  BPATH=$BACKUP_PATH
+
+## Copia os arquivos existentes na rotina de backup oracle para o /mnt/backup
+backupArea=/u01/app/oracle/fast_recovery_area/XE;
+dt=`date +%d-%m-%Y`; 
+mkdir -p /mnt/backup/autobackup /mnt/backup/backupset;
+for i in $(ls -l /u01/app/oracle/fast_recovery_area/XE | awk '{print $9}'| egrep 'autobackup|backupset'); 
+	do 
+		cd $backupArea/$i; 
+		cp -r * /mnt/backup/$i/;
+		cd /mnt/backup/$i/;
+		for t in $(ls -d */);
+		 	do 
+		 		cd $t; 
+		 		for y in $(ls -l | awk '{print $9}' | grep -v '^$'); 
+		 			do mv $y $DB_ID-$dt-$y;
+		 		done
+		done
+done
