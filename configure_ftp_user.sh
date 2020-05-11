@@ -14,11 +14,11 @@ while [[ $op0 == true ]]; do
         fi
 done
 ##Criação de usuários e configuração dos diretórios
-directory=/rislab/$newUser;
+directory=/home/$newUser;
 useradd -d $directory -s /sbin/nologin $newUser;
 pass=`date | md5sum | head -c8`;
 usermod -p $(openssl passwd $pass) $newUser;
-chown $newUser. /rislab/$newUser;
+chown $newUser. /home/$newUser;
 echo "";
 echo "Usuario inserido com sucesso, abaixo os dados para acesso via FTP:";
 echo "Usuario: $newUser";
