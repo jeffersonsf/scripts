@@ -9,7 +9,6 @@ if [[ $userV == root ]]; then
 	echo "##                                                           ##";
 	echo "##            Script Instalação Programas Linux              ##";                         
 	echo "##                                                           ##";
-	echo "##                                 latam-infra@endurance.com ##";
 	echo "###############################################################";
 
 	##Funções
